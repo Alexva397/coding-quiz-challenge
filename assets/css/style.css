@@ -1,0 +1,25 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial;
+    margin: 0;
+    min-height: 100vh;
+    justify-content: flex-start;
+    background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
+  }
+
+
+
+
+
+
+
+
+
+
+
+.hide {
+    display: none;
+}

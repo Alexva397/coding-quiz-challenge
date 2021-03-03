@@ -21,15 +21,25 @@
             </div>
             <div>
                 <div class="quiz-content">
-                    <h1>Web Dev Quiz Challenge</h1>
-                    <p>Try and answer all of the following questions about HTML/CSS/JavaScript within the given time
-                        limit.
-                        <br>Warning: time will be removed from the clock with every incorrect answer.
-                    </p>
-                    <h4>Good Luck! 😁</h4>
-                    <button type="button" id="start-button">Begin</button>
-                    <h4 hidden id="question-text"></h4>
-                    <ul hidden></ul>
+                    <div id="start-screen">
+                        <h1>Web Dev Quiz Challenge</h1>
+                        <p>Try and answer all of the following questions about HTML/CSS/JavaScript within the given time
+                            limit.
+                            <br>Warning: time will be removed from the clock with every incorrect answer.
+                        </p>
+                        <h4>Good Luck! 😁</h4>
+                        <button type="button" id="start-button">Begin</button>
+                    </div>
+                    <div id="question-screen" class="hide">
+                        <h4 id="question-text"></h4>
+                            <button type="button" id="answer-choice-a"></button>
+                            <button type="button" id="answer-choice-b"></button>
+                            <button type="button" id="answer-choice-c"></button>
+                            <button type="button" id="answer-choice-d"></button>
+                    </div>
+                    <div id="end-screen" class="hide">
+
+                    </div>
                 </div>
             </div>
 
