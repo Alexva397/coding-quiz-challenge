@@ -81,6 +81,7 @@ var quizQuestions = [
     },
 ];
 var timer;
+var randomQuestionChoice;
 var timerCount = 50;
 var completedQuestions = [];
 var questionCount;
@@ -104,8 +105,6 @@ function startTimer() {
         }
     }, 1000);
 }
-
-
 
 // function endGameScreen() {
 //     var endText = document.createElement()
@@ -140,65 +139,74 @@ function generateQuestion() {
         // endGameScreen();
         return;
     }
-        answerA.addEventListener("click", function (event) {
-            event.preventDefault();
+
+        answerA.addEventListener("click", function () {
+    
             if (answerA.textContent.trim() === randomQuestionChoice.correctAnswer) {
                 console.log("correct");
                 checkAndRemoveQuestion();
+            } else if (timerCount <= 11) {
+                timerCount = 0;
+                console.log("game over");
+                return;
             } else {
                 timerCount -= 10;
                 console.log("incorrect");
             }
         });
-        answerB.addEventListener("click", function (event) {
-            event.preventDefault();
+        answerB.addEventListener("click", function () {
+            
             if (answerB.textContent.trim() === randomQuestionChoice.correctAnswer) {
                 console.log("correct");
                 checkAndRemoveQuestion();
+            } else if (timerCount <= 11) {
+                timerCount = 0;
+                console.log("game over");
+                return;
             } else {
                 timerCount -= 10;
                 console.log("incorrect");
             }
         });
-        answerC.addEventListener("click", function (event) {
-            event.preventDefault();
+        answerC.addEventListener("click", function () {
+            
             if (answerC.textContent.trim() === randomQuestionChoice.correctAnswer) {
                 console.log("correct");
                 checkAndRemoveQuestion();
+            } else if (timerCount <= 11) {
+                timerCount = 0;
+                console.log("game over");
+                return;
             } else {
                 timerCount -= 10;
                 console.log("incorrect");
             }
         });
-        answerD.addEventListener("click", function (event) {
-            event.preventDefault();
+        answerD.addEventListener("click", function () {
+
             if (answerD.textContent.trim() === randomQuestionChoice.correctAnswer) {
                 console.log("correct");
                 checkAndRemoveQuestion();
+            } else if (timerCount <= 11) {
+                timerCount = 0;
+                console.log("game over");
+                return;
             } else {
                 timerCount -= 10;
                 console.log("incorrect");
             }
         });
 
-    }
-
-
-
+}
     
-
     // function starts the quiz from the home screen
     function startQuiz() {
         startScreen.classList.add("hide");
         questionScreen.classList.remove("hide");
-        // var gameEnd = false;
         questionCount = 0;
         startTimer();
         generateQuestion();
-        // if (gameEnd === true) {
-        //     endGameScreen();
 
-        // }
 
     }
 
@@ -206,3 +214,40 @@ function generateQuestion() {
 
     startButton.addEventListener("click", startQuiz);
     highscoresButton.addEventListener("click", highScores);
+
+
+
+
+    //  function generateQuestion() {
+        // if (questionCount < quizQuestions.length) {
+        //     var randomQuestionChoice = Math.floor(Math.random() * quizQuestions.length);
+
+        //     questionText.textContent = quizQuestions[randomQuestionChoice].question;
+        //     answerA.textContent = quizQuestions[randomQuestionChoice].answers.a;
+        //     answerB.textContent = quizQuestions[randomQuestionChoice].answers.b;
+        //     answerC.textContent = quizQuestions[randomQuestionChoice].answers.c;
+        //     answerD.textContent = quizQuestions[randomQuestionChoice].answers.d;
+        //     console.log(quizQuestions[randomQuestionChoice]);
+        // } else {
+        //     // endGameScreen();
+        //     return;
+        // }
+    // }
+
+
+    // function confirmAnswerAndNewQuestion(event) {
+    //     var userChoice = event.target.textContent;
+    //     if (userChoice === randomQuestionChoice.correctAnswer) {
+    //         console.log("correct");
+    //     } else {
+    //         timerCount -= 10;
+    //         console.log("incorrect");
+    //     }
+    //     quizQuestions.splice(randomQuestionChoice, 1);
+    //     generateQuestion();
+    // }
+
+    // answerA.addEventListener("click", confirmAnswerAndNewQuestion);
+    // answerB.addEventListener("click", confirmAnswerAndNewQuestion);
+    // answerC.addEventListener("click", confirmAnswerAndNewQuestion);
+    // answerD.addEventListener("click", confirmAnswerAndNewQuestion);
