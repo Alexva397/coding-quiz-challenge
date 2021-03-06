@@ -22,9 +22,11 @@
 
   .highscore {
     flex: 0 30%;
+    justify-content: left;
   }
   .timer {
     flex: 0 30%;
+    justify-content: right;
     
   }
 

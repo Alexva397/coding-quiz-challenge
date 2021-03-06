@@ -93,12 +93,14 @@ var timerCount = 50;
 var questionCount;
 var randomQuestionChoice;
 var score;
+var allHighScores = [];
+var storedHighScores;
 
 function getHighscores() {
- var storedHighscores = JSON.parse(localStorage.getItem("userScore"));
- if (storedHighscores !== null) {
-     
- }
+    var storedHighscores = JSON.parse(localStorage.getItem("userScore"));
+    if (storedHighscores.length > 0) {
+       allHighScores = storedHighScores;
+     }
 };
 
 
@@ -185,7 +187,8 @@ function endGameScreen() {
                 initials: initalsInput.value.trim(),
                 score: score.textContent
             };
-        localStorage.setItem("userScore", JSON.stringify(userScore));
+        allHighScores.push(userScore);
+        localStorage.setItem("userScore", JSON.stringify(allHighScores));
         endScreen.classList.add("hide");
         highscoresScreen();
         });
@@ -202,11 +205,11 @@ function endGameScreen() {
 // Highscores screen, displayed after user input or upon button click
 function highscoresScreen() {
     highscoreScreen.classList.remove("hide");
-    getscores();
+    getHighscores();
 
 };
 
-getscores
+
 
 // Navigates to highscores screen
 highscoresButton.addEventListener("click", function(event) {
