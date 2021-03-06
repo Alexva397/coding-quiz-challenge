@@ -94,9 +94,12 @@ var questionCount;
 var randomQuestionChoice;
 var score;
 
-// function getHighscores() {
-//  var storedHighscores = localStorage.getItem("userScore");
-// };
+function getHighscores() {
+ var storedHighscores = JSON.parse(localStorage.getItem("userScore"));
+ if (storedHighscores !== null) {
+     
+ }
+};
 
 
 // Start quiz upon button click
@@ -110,7 +113,7 @@ function startQuiz() {
     generateQuestion();
 }
 
-
+// Timer
 function startTimer() {
     // Sets timer
     timer = setInterval(function () {
@@ -131,7 +134,7 @@ function startTimer() {
 
 
 
-//  function to generat each new question and call end screen function
+// Function to generate each new question and call end screen function
 function generateQuestion() {
     rightWrong.textContent = "";
     if (questionCount < quizQuestions.length) {
@@ -152,7 +155,7 @@ function generateQuestion() {
 }
 
 
-// function to check user input right/wrong and generate next question
+// Function to check user input right/wrong and generate next question
 function confirmAnswerAndNewQuestion(event) {
     var userChoice = event.target.textContent;
     if (userChoice != quizQuestions[randomQuestionChoice].correctAnswer) {
@@ -170,7 +173,7 @@ function confirmAnswerAndNewQuestion(event) {
     
 }
 
-
+// Function for the end of game screen and stores user input
 function endGameScreen() {
     questionScreen.classList.add("hide");
     if (quizQuestions.length === 0) {
@@ -183,21 +186,34 @@ function endGameScreen() {
                 score: score.textContent
             };
         localStorage.setItem("userScore", JSON.stringify(userScore));
+        endScreen.classList.add("hide");
+        highscoresScreen();
         });
         
     } else {
         timesUp.classList.remove("hide");
-
         console.log("times up");
+        tryAgain.addEventListener("click", function() {
+            location.reload();
+        })
     }
 }
 
+// Highscores screen, displayed after user input or upon button click
 function highscoresScreen() {
+    highscoreScreen.classList.remove("hide");
+    getscores();
 
 };
 
+getscores
 
-
+// Navigates to highscores screen
+highscoresButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    startScreen.classList.add("hide");
+    highscoresScreen();
+});
 
 // Event listeners for various buttons within quiz
 startButton.addEventListener("click", startQuiz);
@@ -206,11 +222,12 @@ answerA.addEventListener("click", confirmAnswerAndNewQuestion);
 answerB.addEventListener("click", confirmAnswerAndNewQuestion);
 answerC.addEventListener("click", confirmAnswerAndNewQuestion);
 answerD.addEventListener("click", confirmAnswerAndNewQuestion);
-tryAgain.addEventListener("click", startQuiz);
-
 
 
 // undefined @ endscreen
 // try again button @ times up screen
 // right displaying when correct answer selected
 // storing local object, not taking score input
+//  times up screen wont reset timer
+
+// What if the try again button refreashed browser??

@@ -86,14 +86,6 @@ var questionCount;
 var randomQuestionChoice;
 
 
-
-function highScores() {
-    console.log("hello");
-}
-
-
-
-
 function startTimer() {
     // Sets timer
     timer = setInterval(function () {
@@ -177,7 +169,7 @@ function startTimer() {
 //                 return;
 //             }
 //     }
-//     // var score = timerElement.textContent;
+//     // window.score = timerElement.textContent;
 //     // console.log(score);
 //     // clearInterval(timer);
 //     // endGameScreen();
@@ -236,11 +228,7 @@ function startQuiz() {
     generateQuestion();
 }
 
-
-
 startButton.addEventListener("click", startQuiz);
-highscoresButton.addEventListener("click", highScores);
-
 
 answerA.addEventListener("click", confirmAnswerAndNewQuestion);
 answerB.addEventListener("click", confirmAnswerAndNewQuestion);
