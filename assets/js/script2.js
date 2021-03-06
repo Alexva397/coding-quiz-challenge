@@ -3,11 +3,19 @@ var startButton = document.getElementById("start-button");
 var timerElement = document.getElementById("countdown");
 var startScreen = document.getElementById("start-screen");
 var questionScreen = document.getElementById("question-screen");
+var endScreen = document.getElementById("end-screen");
+var timesUp = document.getElementById("time-is-up");
+var highscoreScreen = document.getElementById("highscore-screen");
 var questionText = document.getElementById("question-text");
 var answerA = document.getElementById("answer-choice-a");
 var answerB = document.getElementById("answer-choice-b");
 var answerC = document.getElementById("answer-choice-c");
 var answerD = document.getElementById("answer-choice-d");
+var rightWrong = document.getElementById("right-wrong");
+var tryAgain = document.getElementById("restart");
+var scoreElement = document.getElementById("score");
+var initalsInput = document.getElementById("initials");
+var submitScoreButton = document.getElementById("submit-score")
 var quizQuestions = [
     {
         question: "Which of the following is true about variable naming conventions in JavaScript?",
@@ -84,7 +92,23 @@ var timer;
 var timerCount = 50;
 var questionCount;
 var randomQuestionChoice;
+var score;
 
+// function getHighscores() {
+//  var storedHighscores = localStorage.getItem("userScore");
+// };
+
+
+// Start quiz upon button click
+function startQuiz() {
+    // hide start screen
+    startScreen.classList.add("hide");
+    // show quiz content screen
+    questionScreen.classList.remove("hide"); 
+    questionCount = 0;
+    startTimer();
+    generateQuestion();
+}
 
 
 function startTimer() {
@@ -92,12 +116,13 @@ function startTimer() {
     timer = setInterval(function () {
         timerCount--;
         timerElement.textContent = timerCount;
-        // Tests if time has run out
+        // conditional to check if time has run out
         if (timerCount <= 0) {
             // Clears interval
             clearInterval(timer);
             timerElement.textContent = "0";
             console.log("game over");
+            endGameScreen();
 
         }
     }, 1000);
@@ -106,8 +131,9 @@ function startTimer() {
 
 
 
-
+//  function to generat each new question and call end screen function
 function generateQuestion() {
+    rightWrong.textContent = "";
     if (questionCount < quizQuestions.length) {
         randomQuestionChoice = Math.floor(Math.random() * quizQuestions.length);
 
@@ -118,26 +144,27 @@ function generateQuestion() {
         answerD.textContent = quizQuestions[randomQuestionChoice].answers.d;
     } 
     else if (questionCount >= quizQuestions.length) {
-        var score = timerElement.textContent;
+        window.score = timerElement.textContent;
         console.log(score);
         clearInterval(timer);
         endGameScreen();
-        
     }
 }
 
 
-
+// function to check user input right/wrong and generate next question
 function confirmAnswerAndNewQuestion(event) {
     var userChoice = event.target.textContent;
     if (userChoice != quizQuestions[randomQuestionChoice].correctAnswer) {
         timerCount -= 10;
         console.log("incorrect");
+        rightWrong.textContent = "Wrong!";
     } 
     else {
         console.log("correct");
         quizQuestions.splice(randomQuestionChoice, 1);
         console.log(quizQuestions.length);
+        rightWrong.textContent = "Right!";
         generateQuestion();
     }
     
@@ -145,25 +172,45 @@ function confirmAnswerAndNewQuestion(event) {
 
 
 function endGameScreen() {
-    console.log("You Cheeky Bastard");
+    questionScreen.classList.add("hide");
+    if (quizQuestions.length === 0) {
+        endScreen.classList.remove("hide");
+        scoreElement.textContent = ("Score: " + score);
+        submitScoreButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            var userScore = {
+                initials: initalsInput.value.trim(),
+                score: score.textContent
+            };
+        localStorage.setItem("userScore", JSON.stringify(userScore));
+        });
+        
+    } else {
+        timesUp.classList.remove("hide");
+
+        console.log("times up");
+    }
 }
 
+function highscoresScreen() {
+
+};
 
 
 
-function startQuiz() {
-    startScreen.classList.add("hide");
-    questionScreen.classList.remove("hide");
-    questionCount = 0;
-    startTimer();
-    generateQuestion();
-}
+
+// Event listeners for various buttons within quiz
+startButton.addEventListener("click", startQuiz);
+
+answerA.addEventListener("click", confirmAnswerAndNewQuestion);
+answerB.addEventListener("click", confirmAnswerAndNewQuestion);
+answerC.addEventListener("click", confirmAnswerAndNewQuestion);
+answerD.addEventListener("click", confirmAnswerAndNewQuestion);
+tryAgain.addEventListener("click", startQuiz);
 
 
 
-startButton.addEventListener('click', startQuiz);
-
-answerA.addEventListener('click', confirmAnswerAndNewQuestion);
-answerB.addEventListener('click', confirmAnswerAndNewQuestion);
-answerC.addEventListener('click', confirmAnswerAndNewQuestion);
-answerD.addEventListener('click', confirmAnswerAndNewQuestion);
+// undefined @ endscreen
+// try again button @ times up screen
+// right displaying when correct answer selected
+// storing local object, not taking score input

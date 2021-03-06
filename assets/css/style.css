@@ -3,11 +3,41 @@
   }
   
   body {
-    font-family: Arial;
+    font-family: 'Exo 2', sans-serif;
     margin: 0;
     min-height: 100vh;
     justify-content: flex-start;
     background: linear-gradient(0deg, rgba(19,41,61,1) 0%, rgba(237,245,249,1) 63%);
+  }
+
+  .wrapper {
+    margin: .5em;
+  }
+
+  .top-bar-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+
+  .highscore {
+    flex: 0 30%;
+  }
+  .timer {
+    flex: 0 30%;
+    
+  }
+
+  .question-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  button {
+    font-family: 'Exo 2', sans-serif;
+    width: 30%;
+    margin-bottom: 5px;
   }
 
 

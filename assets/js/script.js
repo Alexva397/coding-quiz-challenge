@@ -85,9 +85,14 @@ var timerCount = 50;
 var questionCount;
 var randomQuestionChoice;
 
+
+
 function highScores() {
     console.log("hello");
 }
+
+
+
 
 function startTimer() {
     // Sets timer
@@ -100,10 +105,84 @@ function startTimer() {
             clearInterval(timer);
             timerElement.textContent = "0";
             console.log("game over");
+            endGameScreen
 
         }
     }, 1000);
 }
+
+
+// /**
+//  * Randomly shuffle an array
+//  * https://stackoverflow.com/a/2450976/1293256
+//  * @param  {Array} array The array to shuffle
+//  * @return {String}      The first item in the shuffled array
+//  */
+// var shuffle = function (array) {
+
+// 	var currentIndex = array.length;
+// 	var temporaryValue, randomIndex;
+
+// 	// While there remain elements to shuffle...
+// 	while (0 !== currentIndex) {
+// 		// Pick a remaining element...
+// 		randomIndex = Math.floor(Math.random() * currentIndex);
+// 		currentIndex -= 1;
+
+// 		// And swap it with the current element.
+// 		temporaryValue = array[currentIndex];
+// 		array[currentIndex] = array[randomIndex];
+// 		array[randomIndex] = temporaryValue;
+// 	}
+
+// 	return array;
+
+// };
+
+
+
+
+
+// function generateQuestion() {
+//     var shuffledQuestions = shuffle(quizQuestions);
+//     console.log(shuffledQuestions);
+//     for (i = 0; i < shuffledQuestions.length; i++) {
+        
+//         questionText.textContent = shuffledQuestions[i].question;
+//         answerA.textContent = shuffledQuestions[i].answers.a;
+//         answerB.textContent = shuffledQuestions[i].answers.b;
+//         answerC.textContent = shuffledQuestions[i].answers.c;
+//         answerD.textContent = shuffledQuestions[i].answers.d;
+//         console.log(shuffledQuestions[i].correctAnswer);
+
+        
+//         answerA.addEventListener("click", confirmAnswerAndNewQuestion);
+//         answerB.addEventListener("click", confirmAnswerAndNewQuestion);
+//         answerC.addEventListener("click", confirmAnswerAndNewQuestion);
+//         answerD.addEventListener("click", confirmAnswerAndNewQuestion);
+//         }
+
+//         function confirmAnswerAndNewQuestion(event) {
+            
+//             var userChoice = event.target.textContent;
+//             if (userChoice != shuffledQuestions[i].correctAnswer) {
+//                 timerCount -= 10;
+//                 console.log("incorrect");
+//                 rightWrong.textContent = "Wrong!"
+//             } 
+//             else {
+//                 console.log("correct");
+//                 console.log(shuffledQuestions[i]);
+//                 rightWrong.textContent = "Right!"
+//                 return;
+//             }
+//     }
+//     // var score = timerElement.textContent;
+//     // console.log(score);
+//     // clearInterval(timer);
+//     // endGameScreen();
+    
+// }
 
 
 function generateQuestion() {
@@ -140,7 +219,11 @@ function confirmAnswerAndNewQuestion(event) {
 
 
 function endGameScreen() {
+    questionScreen.classList.add("hide");
+    if (quizQuestions.length === 0); {
+        endScreen.classList.remove("hide");
     console.log("You Cheeky Bastard");
+    }
 }
 
 
@@ -158,6 +241,7 @@ function startQuiz() {
 startButton.addEventListener("click", startQuiz);
 highscoresButton.addEventListener("click", highScores);
 
+
 answerA.addEventListener("click", confirmAnswerAndNewQuestion);
 answerB.addEventListener("click", confirmAnswerAndNewQuestion);
 answerC.addEventListener("click", confirmAnswerAndNewQuestion);
@@ -166,92 +250,3 @@ answerD.addEventListener("click", confirmAnswerAndNewQuestion);
 
 
 
-
-
-
-// function generateQuestion() {
-
-//     function checkAndRemoveQuestion() {
-//         for (i = 0; i < quizQuestions.length; i++) {
-//             if (randomQuestionChoice === quizQuestions[i]) {
-//                 console.log(quizQuestions);
-//                 quizQuestions.splice(quizQuestions[i], i);
-//                 console.log(quizQuestions);
-//                 console.log(quizQuestions.length);
-//                 generateQuestion();
-//             }
-//         }
-//     }
-
-//     if (questionCount < quizQuestions.length) {
-//         var randomQuestionChoice = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
-
-//         questionText.textContent = randomQuestionChoice.question;
-//         answerA.textContent = randomQuestionChoice.answers.a;
-//         answerB.textContent = randomQuestionChoice.answers.b;
-//         answerC.textContent = randomQuestionChoice.answers.c;
-//         answerD.textContent = randomQuestionChoice.answers.d;
-//         console.log(randomQuestionChoice);
-//     } else {
-//         // endGameScreen();
-//         return;
-//     }
-
-//     answerA.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         if (answerA.textContent.trim(event) === randomQuestionChoice.correctAnswer) {
-//             console.log("correct"); event.preventDefault();
-//             checkAndRemoveQuestion();
-//         } else if (timerCount <= 11) {
-//             timerCount = 0;
-//             console.log("game over");
-
-//         } else {
-//             timerCount -= 10;
-//             console.log("incorrect");
-//         }
-//     });
-//     answerB.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         if (answerB.textContent.trim() === randomQuestionChoice.correctAnswer) {
-//             console.log("correct");
-//             checkAndRemoveQuestion();
-//         } else if (timerCount <= 11) {
-//             timerCount = 0;
-//             console.log("game over");
-
-//         } else {
-//             timerCount -= 10;
-//             console.log("incorrect");
-//         }
-//     });
-//     answerC.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         if (answerC.textContent.trim() === randomQuestionChoice.correctAnswer) {
-//             console.log("correct");
-//             checkAndRemoveQuestion();
-//         } else if (timerCount <= 11) {
-//             timerCount = 0;
-//             console.log("game over");
-
-//         } else {
-//             timerCount -= 10;
-//             console.log("incorrect");
-//         }
-//     });
-//     answerD.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         if (answerD.textContent.trim() === randomQuestionChoice.correctAnswer) {
-//             console.log("correct");
-//             checkAndRemoveQuestion();
-//         } else if (timerCount <= 11) {
-//             timerCount = 0;
-//             console.log("game over");
-
-//         } else {
-//             timerCount -= 10;
-//             console.log("incorrect");
-//         }
-//     });
-
-// }

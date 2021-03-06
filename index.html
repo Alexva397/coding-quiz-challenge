@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
-    </link>
     <title>Web Dev Quiz</title>
 </head>
 
@@ -19,35 +20,42 @@
             <div class="timer">
                 <h4><span id="countdown">50</span> Seconds remaining</h4>
             </div>
-            <div>
-                <div class="quiz-content">
-                    <div id="start-screen">
-                        <h1>Web Dev Quiz Challenge</h1>
-                        <p>Try and answer all of the following questions about HTML/CSS/JavaScript within the given time
-                            limit.
-                            <br>Warning: time will be removed from the clock with every incorrect answer.
-                        </p>
-                        <h4>Good Luck! 😁</h4>
-                        <button type="button" id="start-button">Begin</button>
-                    </div>
-                    <div id="question-screen" class="hide">
-                        <h4 id="question-text"></h4>
-                            <button type="button" id="answer-choice-a"></button>
-                            <button type="button" id="answer-choice-b"></button>
-                            <button type="button" id="answer-choice-c"></button>
-                            <button type="button" id="answer-choice-d"></button>
-                    </div>
-                    <div id="end-screen" class="hide">
-
-                    </div>
-                </div>
-            </div>
-
         </div>
+        <div class="quiz-content">
+            <div id="start-screen">
+                <h1>Web Dev Quiz Challenge</h1>
+                <p>Try and answer all of the following questions about HTML/CSS/JavaScript within the given time
+                    limit.
+                    <br>Warning: time will be removed from the clock with every incorrect answer.
+                </p>
+                <h4>Good Luck! 😁</h4>
+                <button type="button" id="start-button">Begin</button>
+            </div>
+            <div id="question-screen" class=" question-screen hide">
+                <h4 id="question-text"></h4>
+                <button type="button" id="answer-choice-a"></button>
+                <button type="button" id="answer-choice-b"></button>
+                <button type="button" id="answer-choice-c"></button>
+                <button type="button" id="answer-choice-d"></button>
+                <div id="right-wrong"></div>
+            </div>
+            <div id="end-screen" class="hide">
+                <h2 id="end-text">Good Job!</h2>
+                <div id="score"></div>
+                <p>Please input your initals to save your score.</p>
+                <input id="initials" placeholder="initial here..">
+                <button id="submit-score">Submit</button>
+            </div>
+            <div id="time-is-up" class="hide">
+                <h2>Sorry :(</h2>
+                <p>You have run out of time.</p>
+                <button id="restart">Try Again?</button>
+            </div>
+            <div id="highscore-screen" class="hide">
+                <h4>Highscores:</h4>
 
-
-
-
+            </div>
+        </div>
     </div>
     <script src="./assets/js/script2.js"></script>
 </body>
