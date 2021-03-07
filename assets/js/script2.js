@@ -11,7 +11,7 @@ var answerA = document.getElementById("answer-choice-a");
 var answerB = document.getElementById("answer-choice-b");
 var answerC = document.getElementById("answer-choice-c");
 var answerD = document.getElementById("answer-choice-d");
-var rightWrong = document.getElementById("right-wrong");
+var Wrong = document.getElementById("wrong");
 var tryAgain = document.getElementById("restart");
 var scoreElement = document.getElementById("score");
 var initalsInput = document.getElementById("initials");
@@ -96,25 +96,20 @@ var randomQuestionChoice;
 var score = 0;
 var allHighScores = [];
 var storedHighScores;
-// var userScore = {
-//     initials: "",
-//     scoreEl: 0
-// };
 
-
+// Pulls highscores from local storage
 function getHighscores() {
-    var storedHighscores = JSON.parse(localStorage.getItem("highScoreList"));
-    if (storedHighscores.length > 0) {
-        allHighScores = storedHighScores;
+    if (localStorage.getItem("highScoreList")) {
+        allHighScores = JSON.parse(localStorage.getItem("highScoreList"));
         console.log(allHighScores);
     } else {
         allHighScores = [];
     }
 };
 
-
 // Start quiz upon button click
 function startQuiz() {
+    // pulls highscores when game started
     getHighscores();
     // hide start screen
     startScreen.classList.add("hide");
@@ -138,20 +133,15 @@ function startTimer() {
             timerElement.textContent = "0";
             console.log("game over");
             endGameScreen();
-
         }
     }, 1000);
 }
 
-
-
-
-// Function to generate each new question and call end screen function
+// Function to generate each new question and call end screen function once all questions have been answered
 function generateQuestion() {
-    rightWrong.textContent = "";
+    Wrong.textContent = "";
     if (questionCount < quizQuestions.length) {
         randomQuestionChoice = Math.floor(Math.random() * quizQuestions.length);
-
         questionText.textContent = quizQuestions[randomQuestionChoice].question;
         answerA.textContent = quizQuestions[randomQuestionChoice].answers.a;
         answerB.textContent = quizQuestions[randomQuestionChoice].answers.b;
@@ -166,23 +156,20 @@ function generateQuestion() {
     }
 }
 
-
 // Function to check user input right/wrong and generate next question
 function confirmAnswerAndNewQuestion(event) {
     var userChoice = event.target.textContent;
     if (userChoice != quizQuestions[randomQuestionChoice].correctAnswer) {
         timerCount -= 10;
         console.log("incorrect");
-        rightWrong.textContent = "Wrong!";
+        Wrong.textContent = "Wrong!";
     }
     else {
         console.log("correct");
         quizQuestions.splice(randomQuestionChoice, 1);
         console.log(quizQuestions.length);
-        rightWrong.textContent = "Right!";
         generateQuestion();
     }
-
 }
 
 // Function for the end of game screen and stores user input
@@ -203,8 +190,8 @@ function endGameScreen() {
             endScreen.classList.add("hide");
             highscoresScreen();
         });
-
-    } else {
+    } 
+    else {
         timesUp.classList.remove("hide");
         console.log("times up");
         tryAgain.addEventListener("click", function () {
@@ -217,16 +204,13 @@ function endGameScreen() {
 function highscoresScreen() {
     highscoreScreen.classList.remove("hide");
     getHighscores();
+    // iterate over allHighScores and creat list items for each
     for (i = 0; i < allHighScores.length; i++) {
         var scoreListItem = document.createElement("li");
-
-        scoreListItem.textContent = "User: " + allHighScores[i].initials + "          |  Score: " + allHighScores[i].scoreEl;
+        scoreListItem.textContent = "User: " + allHighScores[i].initials + " | Score: " + allHighScores[i].scoreEl;
         scoreListElement.appendChild(scoreListItem);
     }
-
 };
-
-
 
 // Navigates to highscores screen
 highscoresButton.addEventListener("click", function (event) {
@@ -237,17 +221,7 @@ highscoresButton.addEventListener("click", function (event) {
 
 // Event listeners for various buttons within quiz
 startButton.addEventListener("click", startQuiz);
-
 answerA.addEventListener("click", confirmAnswerAndNewQuestion);
 answerB.addEventListener("click", confirmAnswerAndNewQuestion);
 answerC.addEventListener("click", confirmAnswerAndNewQuestion);
 answerD.addEventListener("click", confirmAnswerAndNewQuestion);
-
-
-// undefined @ endscreen
-// try again button @ times up screen
-// right displaying when correct answer selected
-// storing local object, not taking score input
-//  times up screen wont reset timer
-
-// What if the try again button refreashed browser?
