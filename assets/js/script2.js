@@ -16,6 +16,7 @@ var tryAgain = document.getElementById("restart");
 var scoreElement = document.getElementById("score");
 var initalsInput = document.getElementById("initials");
 var submitScoreButton = document.getElementById("submit-score")
+var scoreListElement = document.getElementById("highscore-list");
 var quizQuestions = [
     {
         question: "Which of the following is true about variable naming conventions in JavaScript?",
@@ -92,24 +93,33 @@ var timer;
 var timerCount = 50;
 var questionCount;
 var randomQuestionChoice;
-var score;
+var score = 0;
 var allHighScores = [];
 var storedHighScores;
+// var userScore = {
+//     initials: "",
+//     scoreEl: 0
+// };
+
 
 function getHighscores() {
-    var storedHighscores = JSON.parse(localStorage.getItem("userScore"));
+    var storedHighscores = JSON.parse(localStorage.getItem("highScoreList"));
     if (storedHighscores.length > 0) {
-       allHighScores = storedHighScores;
-     }
+        allHighScores = storedHighScores;
+        console.log(allHighScores);
+    } else {
+        allHighScores = [];
+    }
 };
 
 
 // Start quiz upon button click
 function startQuiz() {
+    getHighscores();
     // hide start screen
     startScreen.classList.add("hide");
     // show quiz content screen
-    questionScreen.classList.remove("hide"); 
+    questionScreen.classList.remove("hide");
     questionCount = 0;
     startTimer();
     generateQuestion();
@@ -147,9 +157,9 @@ function generateQuestion() {
         answerB.textContent = quizQuestions[randomQuestionChoice].answers.b;
         answerC.textContent = quizQuestions[randomQuestionChoice].answers.c;
         answerD.textContent = quizQuestions[randomQuestionChoice].answers.d;
-    } 
+    }
     else if (questionCount >= quizQuestions.length) {
-        window.score = timerElement.textContent;
+        score = timerElement.textContent;
         console.log(score);
         clearInterval(timer);
         endGameScreen();
@@ -164,7 +174,7 @@ function confirmAnswerAndNewQuestion(event) {
         timerCount -= 10;
         console.log("incorrect");
         rightWrong.textContent = "Wrong!";
-    } 
+    }
     else {
         console.log("correct");
         quizQuestions.splice(randomQuestionChoice, 1);
@@ -172,7 +182,7 @@ function confirmAnswerAndNewQuestion(event) {
         rightWrong.textContent = "Right!";
         generateQuestion();
     }
-    
+
 }
 
 // Function for the end of game screen and stores user input
@@ -181,22 +191,23 @@ function endGameScreen() {
     if (quizQuestions.length === 0) {
         endScreen.classList.remove("hide");
         scoreElement.textContent = ("Score: " + score);
-        submitScoreButton.addEventListener("click", function(event) {
+        submitScoreButton.addEventListener("click", function (event) {
             event.preventDefault();
-            var userScore = {
+            userScore = {
                 initials: initalsInput.value.trim(),
-                score: score.textContent
+                scoreEl: score
             };
-        allHighScores.push(userScore);
-        localStorage.setItem("userScore", JSON.stringify(allHighScores));
-        endScreen.classList.add("hide");
-        highscoresScreen();
+            allHighScores.push(userScore);
+            console.log(allHighScores);
+            localStorage.setItem("highScoreList", JSON.stringify(allHighScores));
+            endScreen.classList.add("hide");
+            highscoresScreen();
         });
-        
+
     } else {
         timesUp.classList.remove("hide");
         console.log("times up");
-        tryAgain.addEventListener("click", function() {
+        tryAgain.addEventListener("click", function () {
             location.reload();
         })
     }
@@ -206,13 +217,19 @@ function endGameScreen() {
 function highscoresScreen() {
     highscoreScreen.classList.remove("hide");
     getHighscores();
+    for (i = 0; i < allHighScores.length; i++) {
+        var scoreListItem = document.createElement("li");
+
+        scoreListItem.textContent = "User: " + allHighScores[i].initials + "          |  Score: " + allHighScores[i].scoreEl;
+        scoreListElement.appendChild(scoreListItem);
+    }
 
 };
 
 
 
 // Navigates to highscores screen
-highscoresButton.addEventListener("click", function(event) {
+highscoresButton.addEventListener("click", function (event) {
     event.preventDefault();
     startScreen.classList.add("hide");
     highscoresScreen();
@@ -233,4 +250,4 @@ answerD.addEventListener("click", confirmAnswerAndNewQuestion);
 // storing local object, not taking score input
 //  times up screen wont reset timer
 
-// What if the try again button refreashed browser??
+// What if the try again button refreashed browser?
