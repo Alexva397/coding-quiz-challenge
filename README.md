@@ -1,6 +1,6 @@
 # coding-quiz-challenge
 
-[Take The Quiz Here!]()
+[Take The Quiz Here!](https://alexva397.github.io/coding-quiz-challenge/)
 
 This quiz is designed to challenge you in the basics of Web Development!
 
